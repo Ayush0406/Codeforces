@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    int getval(char c)
+    {
+        switch(c)
+        {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+        }
+        return 0;
+    }
+    
+    int romanToInt(string s) {
+        int n = s.size();
+        if(n==0)
+            return 0;
+        if(n==1)
+            return getval(s[0]);
+        int sum = 0;
+        for(int i = 0; i< n-1; i++)
+        {
+            if(getval(s[i])<getval(s[i+1]))
+            {
+                sum = sum + getval(s[i+1]) - getval(s[i]);
+                i++;
+            }
+            else
+            {
+                sum = sum + getval(s[i]);
+            }
+        }
+        if(getval(s[n-2]) < getval(s[n-1]))
+            return sum;
+        else
+            return sum + getval(s[n-1]);
+    }
+};
